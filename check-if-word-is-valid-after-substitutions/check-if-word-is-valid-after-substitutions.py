@@ -1,12 +1,12 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        if s.count('a') == s.count('b') == s.count('c'):
-            at = s.find("abc")
-            while at != -1:
-                s = s[:at] + s[at+3:]
-                at = s.find("abc")
-            if s == "":
-                return True
-            return False
-        else:
-            return False
+        stack = []
+        for char in s:
+            if char != 'c':
+                stack.append(char)
+            else:
+                if stack[-2:] != ['a','b']:
+                    return False
+                stack.pop()
+                stack.pop()
+        return not stack
